@@ -1,6 +1,20 @@
 <style>
+.variant-list {
+    height: 500px;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .add-section {
     text-align: center;
+    border: 1px solid #008296;
+    padding: 10px;
+    border-radius: 4px;
+    background-clip: border-box;
+    box-shadow: 0 0 7px rgb(0 0 0 / 10%);
+    border: 0px solid hsl(195deg 13% 94%);
+    border-radius: 0.25rem;
 }
 
 .add-section span {
@@ -11,19 +25,18 @@
 
 .file-upload-button {
     background-color: hsl(0deg 0% 100%);
-    /* border-radius: 50%; */
     height: 30px;
     overflow: hidden;
     position: relative;
-    width: 170px;
-    color: hsl(229deg 46% 43%);
-    border: 0.699999988079071px solid hsl(229deg 46% 43%);
-    margin-top: 10px;
+    width: 70px;
+    color: hsl(188deg 100% 29%);
+    border: 0;
+    margin-top: 2px;
 }
 
 .file-upload-button::after {
-    content: 'Select from device';
-    color: hsl(229deg 46% 43%);
+    content: 'Upload';
+    color: #008296;
     font-size: 14px;
     text-align: center;
 }
@@ -40,17 +53,75 @@
     color: hsl(229deg 46% 43%);
     margin-left: 0.5rem;
 }
+
+.multiple-image {
+    display: flex;
+    align-items: center;
+}
+
+.multiple-image .productAddfromImages {
+    width: 100px;
+    height: 90px;
+    background: hsl(0deg 0% 100%);
+    border: 1px dashed hsl(210deg 14% 83%);
+    border-radius: 5px;
+    position: relative;
+    margin-right: 10px;
+}
+
+.multiple-image .productAddfromImages:last-child {
+    margin-right: 0;
+}
+
+.add-section img {
+    display: block;
+    margin: 0 auto;
+}
+
+.multiple-image .productAddfromImages .multi-img {
+    width: 100%;
+    height: 70px;
+    padding: 0 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.multiple-image .productAddfromImages .remove {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
 </style>
 
 
-<div class="add-section">
-    <img src="assets/img/placeholder.png" class="mb-2" alt="icon" />
-    <span>Drag a product image here</span>
-    <span>- Or -</span>
-    <button class="file-upload-button">
-        <input type="file" class="form-control" (change)="onSelectFile($event)" multiple accept="image/*" />
-    </button>
-</div>
+ <div class="multiple-image">
+        <div class="productAddfromImages mb-5" *ngFor='let url of imageurls; let i = index'>
+            <img class="multi-img" [src]="url.base64String">
+            <a (click)="removeImage(i)" class="remove">
+                <img src="assets/img/remove-icon.png" alt="remove-icon" />
+            </a>
+            <div class="radio-section">
+                <label class="radio-check">
+                    <input type="radio" name="gender" value="1">
+                    <span class="label-check"></span><span class="ml-2">Make it main Image</span>
+                </label>
+            </div>
+        </div>
+        <div class="add-section">
+            <img src="assets/img/placeholder.png" class="mb-2" alt="icon" />
+            <span>Drag a product image here</span>
+            <span>- Or -</span>
+            <button class="file-upload-button">
+                <input type="file" class="form-control" (change)="onSelectFile($event)" multiple accept="image/*" />
+            </button>
+        </div>
+    </div>
 
 
 
